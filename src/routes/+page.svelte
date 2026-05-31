@@ -37,6 +37,10 @@
             & :global(.user_role_config) {
                 position: absolute;
                 top: calc(100% + 16px);
+
+                border-radius: var(--space-md);
+                
+                width: 100%;
             }
         }
     }

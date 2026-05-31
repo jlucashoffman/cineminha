@@ -11,7 +11,7 @@ body {
     background-color: var(--page-background-color);
 }
 
-h1, p, label, button {
+h1, p, label, button, input {
     color: var(--page-text-color);
 }
 
@@ -34,6 +34,57 @@ button {
     &:hover {
         background-color: oklch(from var(--button-background-color) l c h / 0.8);
         color: oklch(from var(--button-text-color) l c h / 0.8);
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+
+    padding: var(--space-md);
+
+    box-sizing: border-box;
+
+    input {
+        width: 100%;
+
+        background-color: transparent;
+
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(34, 34, 34);
+        border-color: oklch(0.35 0 0);
+
+        padding: var(--space-sm) var(--space-md);
+
+        box-sizing: border-box;
+        border-radius: var(--space-sm);
+
+        font-family: inherit;
+
+        &[type="radio"] {
+            display: none;
+        }
+    }
+
+    label[for] {
+        cursor: pointer;
+    }
+
+    button {
+        padding: var(--space-xs) var(--space-md);
+
+        border-radius: var(--space-xs);
+    }
+
+    &:has(input[type="radio"]:checked) {
+        & input[type="radio"]:checked + label {
+        --page-text-color: oklch(76.146% 0.1421 20.91); }
+
+        & :not(input[type="radio"]:checked) + label {
+        opacity: .4; }
     }
 }
 
