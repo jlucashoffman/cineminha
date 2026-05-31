@@ -12,3 +12,17 @@
     {#if controller.lobbyUserRole == "host"}
     <RoomCreation /> {/if}
 </main>
+
+<style>
+    main {
+        max-width: 1440px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto;
+    }
+</style>

@@ -13,7 +13,9 @@ class:select={(value && value == controller.lobbyUserRole)}>
 </button>
 
 <style>
-    button.select {
-        color: red;
+    button {
+        padding: var(--space-xs) var(--space-md);
+
+        border-radius: var(--space-xs);
     }
 </style>

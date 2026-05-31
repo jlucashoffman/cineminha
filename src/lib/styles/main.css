@@ -14,3 +14,32 @@ body {
 h1, p, label, button {
     color: var(--page-text-color);
 }
+
+button {
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+
+    font-weight: bold;
+
+    &.disabled {
+        --button-background-color: oklch(1 0 0 / 0.2);
+        --button-text-color: oklch(0 0 0 / 0.2);
+    }
+
+    &.select {
+        --button-background-color: oklch(0.6157 0.2266 27.24);
+        --button-text-color: oklch(1 0 0);
+    }
+
+    &:hover {
+        background-color: oklch(from var(--button-background-color) l c h / 0.8);
+        color: oklch(from var(--button-text-color) l c h / 0.8);
+    }
+}
+
+.border {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(34, 34, 34);
+    border-color: oklch(0.35 0 0);
+}
