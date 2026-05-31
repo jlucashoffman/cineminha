@@ -1,0 +1,4 @@
+:root {
+    --page-background-color: oklch(0 0 0);
+    --page-text-color: oklch(1 0 0);
+}
