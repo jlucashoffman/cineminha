@@ -1,4 +1,4 @@
-<form id="room_creation">
+<form id="room_creation" class="user_role_config">
     <p>add move details</p>
     <input type="text" name="name" placeholder="movie name">
     <input type="text" name="description" placeholder="movie description">
