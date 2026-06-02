@@ -6,6 +6,7 @@
     import { controller } from "$lib/types/store.svelte";
     import { media } from "$lib/types/video.svelte";
     import type { IWSConnection, IWSHandshake, IWSMediaInfo } from "$lib/types/ws.svelte";
+    import { acceptPeerConnection, addPeerConnection, adoptPeerConnection, handshakePeerConnection } from "$lib/utils/rtc";
     import screamCut from "$lib/utils/screamCutWS";
     import { onDestroy, onMount } from "svelte";
 
@@ -13,6 +14,8 @@
 
     // svelte-ignore non_reactive_update
     let ws:WebSocket;
+
+    const handleUnload = () => screamCut(ws, myId);
 
     onMount(async () => {        
         if (controller.lobbyUserRole === "host") {
@@ -27,7 +30,7 @@
         }
         ws = new WebSocket(`ws://${PUBLIC_SERVER_IP}:${PUBLIC_SERVER_PORT}`);
 
-        window.addEventListener("beforeunload", () => screamCut(ws, myId))
+        window.addEventListener("beforeunload", handleUnload)
 
         ws.onopen = () => {
             ws.send(JSON.stringify({
@@ -52,7 +55,7 @@
         ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
 
-            if(data.userId === myId) return;
+            if(data.userId === myId || data.from === myId) return;
             
             if (data.action === "ping") {
                 if (!controller.viewers.find(v => v.id === data.userId)) {
@@ -74,6 +77,8 @@
                         year: media.releaseYear,
                         audio: media.audio,
                     } as IWSMediaInfo));
+
+
                 }
             }
 
@@ -93,21 +98,38 @@
                 media.releaseYear = data.year;
                 media.audio = data.audio;
             }
+
+            // --- LÓGICA DO WEBRTC ---
+        
+            // Host inicia a ligação quando um Guest dá Ping
+            if (data.action === "ping" && controller.lobbyUserRole === "host" && data.role === "guest") {
+                addPeerConnection(ws, data.userId, myId);
+            }
+
+            // Guest atende a ligação do Host
+            if (data.action === "offer" && data.to === myId && controller.lobbyUserRole === "guest") {
+                acceptPeerConnection(ws, data.from, myId, data.sdp);
+            }
+
+            // Host confirma a resposta do Guest
+            if (data.action === "answer" && data.to === myId && controller.lobbyUserRole === "host") {
+                handshakePeerConnection(data.from, data.sdp);
+            }
+
+            // Ambos processam as rotas de rede
+            if (data.action === "ice" && data.to === myId) {
+                adoptPeerConnection(data.from, data.candidate);
+            }
         };
 
         ws.onclose = () => {
-            ws.send(JSON.stringify({
-                action: 'bye',
-                role: controller.lobbyUserRole,
-                name: controller.userName,
-                userId: myId
-            }))
             console.log('desconectado');
         };
     })
 
     onDestroy(() => {
-        window.removeEventListener("beforeunload", () => screamCut(ws, myId))
+        window.removeEventListener("beforeunload", handleUnload);
+        screamCut(ws, myId);
         if (ws) ws.close();
     });
 </script>
