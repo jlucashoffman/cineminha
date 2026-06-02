@@ -1,4 +1,5 @@
 import type { userRole } from "./store.svelte"
+import type { videoAudio } from "./video.svelte"
 
 export type WSActions = "ping" | "pong"
 
@@ -17,4 +18,12 @@ export interface IWSHandshake {
 export interface IWSCut {
     action: "bye",
     userId: string,
+}
+
+export interface IWSMediaInfo {
+    action: "info",
+    name: string,
+    description: string,
+    year: number,
+    audio: videoAudio,
 }

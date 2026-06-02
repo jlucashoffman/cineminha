@@ -1,8 +1,10 @@
 <script lang="ts">
     import { PUBLIC_SERVER_IP, PUBLIC_SERVER_PORT } from "$env/static/public";
+    import VideoInfo from "$lib/layouts/room/videoInfo.svelte";
     import ViewersList from "$lib/layouts/room/viewersList.svelte";
     import { controller } from "$lib/types/store.svelte";
-    import type { IWSConnection, IWSHandshake } from "$lib/types/ws.svelte";
+    import { media } from "$lib/types/video.svelte";
+    import type { IWSConnection, IWSHandshake, IWSMediaInfo } from "$lib/types/ws.svelte";
     import screamCut from "$lib/utils/screamCutWS";
     import { onDestroy, onMount } from "svelte";
 
@@ -51,6 +53,16 @@
                     name: controller.userName,
                     userId: myId
                 } as IWSHandshake));
+
+                if(controller.lobbyUserRole === "host") {
+                    ws.send(JSON.stringify({
+                        action: 'info',
+                        name: media.name,
+                        description: media.description,
+                        year: media.releaseYear,
+                        audio: media.audio,
+                    } as IWSMediaInfo));
+                }
             }
 
             if (data.action === "pong") {
@@ -61,6 +73,13 @@
 
             if (data.action === "bye") {
                 controller.viewers = controller.viewers.filter((v) => v.id !== data.userId);
+            }
+
+            if (data.action === "info") {
+                media.name = data.name;
+                media.description = data.description;
+                media.releaseYear = data.year;
+                media.audio = data.audio;
             }
         };
 
@@ -83,4 +102,5 @@
 
 <main>
     <ViewersList />
+    <VideoInfo />
 </main>
