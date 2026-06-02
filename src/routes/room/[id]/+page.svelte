@@ -1,6 +1,7 @@
 <script lang="ts">
     import { PUBLIC_SERVER_IP, PUBLIC_SERVER_PORT } from "$env/static/public";
     import VideoInfo from "$lib/layouts/room/videoInfo.svelte";
+    import VideoPlayer from "$lib/layouts/room/videoPlayer.svelte";
     import ViewersList from "$lib/layouts/room/viewersList.svelte";
     import { controller } from "$lib/types/store.svelte";
     import { media } from "$lib/types/video.svelte";
@@ -103,9 +104,10 @@
 
 <main>
     <ViewersList />
-    <div id="host_stream">
-        <VideoInfo {ws} />
+    <div id="interactive_content">
+        <VideoPlayer />
     </div>
+    <VideoInfo {ws} />
 </main>
 
 <style>
@@ -120,13 +122,12 @@
         top: 16px;
         left: 16px;
 
-        & #host_stream {
+        & #interactive_content {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            gap: 16px;
 
-            width: 100%;
-            height: 100%;
+            flex: 1;
         }
     }
 </style>

@@ -23,11 +23,12 @@
 
 <style>
     section {
+        flex: 1;
         display: flex;
         flex-direction: column;
         gap: var(--space-md);
 
-        width: 192px;
+        max-width: 256px;
 
         box-sizing: border-box;
         padding: var(--space-md) var(--space-sm);

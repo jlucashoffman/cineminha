@@ -30,8 +30,10 @@
         box-sizing: border-box;
         padding: var(--space-md);
 
+        max-width: 256px;
         height: 100%;
 
+        flex: 1;
         display: flex;
         flex-direction: column;
         gap: var(--space-md);
