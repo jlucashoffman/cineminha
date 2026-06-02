@@ -68,3 +68,23 @@ export const adoptPeerConnection = async (peerId:string, candidate: RTCIceCandid
     const pc = peerConnections[peerId];
     if (pc) await pc.addIceCandidate(new RTCIceCandidate(candidate))
 }
+
+export const replaceStreamTracks = async (newStream: MediaStream) => {
+    const videoTrack = newStream.getVideoTracks()[0];
+    const audioTrack = newStream.getAudioTracks()[0];
+
+    for (const peerId in peerConnections) {
+        const pc = peerConnections[peerId];
+        const senders = pc.getSenders();
+
+        const videoSender = senders.find(s => s.track?.kind === 'video');
+        if (videoSender && videoTrack) {
+            await videoSender.replaceTrack(videoTrack);
+        }
+
+        const audioSender = senders.find(s => s.track?.kind === 'audio');
+        if (audioSender && audioTrack) {
+            await audioSender.replaceTrack(audioTrack);
+        }
+    }
+};

@@ -6,7 +6,7 @@
     import { controller } from "$lib/types/store.svelte";
     import { media } from "$lib/types/video.svelte";
     import type { IWSConnection, IWSHandshake, IWSMediaInfo } from "$lib/types/ws.svelte";
-    import { acceptPeerConnection, addPeerConnection, adoptPeerConnection, handshakePeerConnection } from "$lib/utils/rtc";
+    import { acceptPeerConnection, addPeerConnection, adoptPeerConnection, handshakePeerConnection, replaceStreamTracks } from "$lib/utils/rtc";
     import screamCut from "$lib/utils/screamCutWS";
     import { onDestroy, onMount } from "svelte";
 

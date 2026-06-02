@@ -1,10 +1,12 @@
 <script lang="ts">
     import { controller } from "$lib/types/store.svelte";
     import { media } from "$lib/types/video.svelte";
+    import VideoOverlay from "./videoOverlay.svelte";
 </script>
 
 <section id="video_player">
     {#if media.stream}
+    <VideoOverlay />
     <video 
     autoplay
     playsinline
