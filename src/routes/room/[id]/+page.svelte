@@ -102,7 +102,9 @@
 
 <main>
     <ViewersList />
-    <VideoInfo />
+    <div id="host_stream">
+        <VideoInfo />
+    </div>
 </main>
 
 <style>
@@ -116,5 +118,14 @@
         position: absolute;
         top: 16px;
         left: 16px;
+
+        & #host_stream {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+
+            width: 100%;
+            height: 100%;
+        }
     }
 </style>
