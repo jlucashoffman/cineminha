@@ -18,9 +18,13 @@
 <style>
     #video_player {
         display: block;
+
         width: 100%;
         height: 100%;
+
         background-color: rgb(27, 27, 27);
+
+        position: relative;
 
         & video {
             object-fit: contain;
