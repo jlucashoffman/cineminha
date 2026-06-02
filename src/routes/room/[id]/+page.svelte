@@ -21,7 +21,11 @@
         if (controller.lobbyUserRole === "host") {
             try {
                 media.stream = await navigator.mediaDevices.getDisplayMedia({ 
-                    video: true, 
+                    video: {
+                        width: { ideal: 1920, max: 1920 },
+                        height: { ideal: 1080, max: 1080 },
+                        frameRate: { ideal: 30, max: 30 }
+                    }, 
                     audio: true 
                 });
             } catch (err) {
