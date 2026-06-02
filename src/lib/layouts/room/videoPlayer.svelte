@@ -14,6 +14,7 @@
     bind:this={video} 
     autoplay
     playsinline
+    controls
     muted={controller.lobbyUserRole === "host"}
     srcobject={media.stream}></video>
     {/if}
