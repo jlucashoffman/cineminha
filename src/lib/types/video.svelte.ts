@@ -5,6 +5,7 @@ class VideoMedia {
     description: string = $state("");
     audio?: videoAudio = $state();
     releaseYear?: number = $state();
+    stream?:MediaStream = $state();
 }
 
 export const media = new VideoMedia();

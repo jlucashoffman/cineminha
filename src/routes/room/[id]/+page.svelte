@@ -14,7 +14,17 @@
     // svelte-ignore non_reactive_update
     let ws:WebSocket;
 
-    onMount(() => {        
+    onMount(async () => {        
+        if (controller.lobbyUserRole === "host") {
+            try {
+                media.stream = await navigator.mediaDevices.getDisplayMedia({ 
+                    video: true, 
+                    audio: true 
+                });
+            } catch (err) {
+                console.error("Host recusou compartilhar a tela", err);
+            }
+        }
         ws = new WebSocket(`ws://${PUBLIC_SERVER_IP}:${PUBLIC_SERVER_PORT}`);
 
         window.addEventListener("beforeunload", () => screamCut(ws, myId))
