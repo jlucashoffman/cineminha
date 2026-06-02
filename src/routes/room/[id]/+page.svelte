@@ -104,3 +104,17 @@
     <ViewersList />
     <VideoInfo />
 </main>
+
+<style>
+    main {
+        display: flex;
+        gap: 16px;
+
+        width: calc(100% - 32px);
+        height: calc(100% - 32px);
+
+        position: absolute;
+        top: 16px;
+        left: 16px;
+    }
+</style>

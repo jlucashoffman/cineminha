@@ -11,7 +11,7 @@ body {
     background-color: var(--page-background-color);
 }
 
-h1, p, label, button, input {
+h1, h6, p, label, button, input {
     color: var(--page-text-color);
 }
 
