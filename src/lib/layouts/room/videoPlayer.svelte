@@ -2,12 +2,16 @@
     import { controller } from "$lib/types/store.svelte";
     import { media } from "$lib/types/video.svelte";
     import VideoOverlay from "./videoOverlay.svelte";
+
+    // svelte-ignore non_reactive_update
+    let video:HTMLVideoElement;
 </script>
 
 <section id="video_player">
     {#if media.stream}
-    <VideoOverlay />
-    <video 
+    <VideoOverlay {video} />
+    <video
+    bind:this={video} 
     autoplay
     playsinline
     muted={controller.lobbyUserRole === "host"}

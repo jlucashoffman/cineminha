@@ -3,6 +3,8 @@
     import { media } from "$lib/types/video.svelte";
     import { replaceStreamTracks } from "$lib/utils/rtc";
 
+    let {video}:{video:HTMLVideoElement} = $props();
+
     const changeWindow = async () => {
         if (controller.lobbyUserRole !== "host") return;
         
@@ -28,12 +30,25 @@
             console.error("Erro ao trocar de janela:", err);
         }
     }
+
+    const toggleFullscreen = () => {
+        if (video) {
+            if (!document.fullscreenElement) {
+                video.requestFullscreen().catch(err => {
+                    console.error(`Erro ao tentar ativar Fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    }
 </script>
 
 <div id="video_overlay">
     {#if controller.lobbyUserRole === "host"}
     <button id="toggle_stream" type="button" onclick={changeWindow}>swap</button>        
     {/if}
+    <button id="fullscreen" type="button" onclick={toggleFullscreen}>fullscreen</button>
 </div>
 
 <style>
