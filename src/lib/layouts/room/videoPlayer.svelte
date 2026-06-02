@@ -9,7 +9,6 @@
     autoplay
     playsinline
     muted={controller.lobbyUserRole === "host"}
-    style="width: 100%;"
     srcobject={media.stream}></video>
     {/if}
 </section>
@@ -17,8 +16,14 @@
 <style>
     #video_player {
         display: block;
-        aspect-ratio: 16/9;
         width: 100%;
+        height: 100%;
         background-color: rgb(27, 27, 27);
+
+        & video {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
     }
 </style>
