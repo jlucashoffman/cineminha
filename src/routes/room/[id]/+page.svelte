@@ -10,6 +10,7 @@
 
     const myId = crypto.randomUUID();
 
+    // svelte-ignore non_reactive_update
     let ws:WebSocket;
 
     onMount(() => {        
