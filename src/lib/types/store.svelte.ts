@@ -11,6 +11,7 @@ class AppStates {
     lobbyUserRole?:userRole = $state();
     roomCode?:string = $state();
     viewers:IViewer[] = $state([]);
+    editVideoInfo:boolean = $state(false);
 }
 
 export const controller = new AppStates();

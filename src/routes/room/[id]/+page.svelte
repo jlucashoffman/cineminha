@@ -103,7 +103,7 @@
 <main>
     <ViewersList />
     <div id="host_stream">
-        <VideoInfo />
+        <VideoInfo {ws} />
     </div>
 </main>
 
