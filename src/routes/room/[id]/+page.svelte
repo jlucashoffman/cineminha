@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { PUBLIC_SERVER_IP, PUBLIC_SERVER_PORT } from "$env/static/public";
+    import { PUBLIC_SERVER_PROTOCOL, PUBLIC_SERVER_IP } from "$env/static/public";
     import VideoInfo from "$lib/layouts/room/videoInfo.svelte";
     import VideoPlayer from "$lib/layouts/room/videoPlayer.svelte";
     import ViewersList from "$lib/layouts/room/viewersList.svelte";
@@ -32,7 +32,7 @@
                 console.error("Host recusou compartilhar a tela", err);
             }
         }
-        ws = new WebSocket(`ws://${PUBLIC_SERVER_IP}:${PUBLIC_SERVER_PORT}`);
+        ws = new WebSocket(`${PUBLIC_SERVER_PROTOCOL}://${PUBLIC_SERVER_IP}`);
 
         window.addEventListener("beforeunload", handleUnload)
 
