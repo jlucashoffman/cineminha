@@ -1,0 +1,13 @@
+:root {
+    --page-background-color: oklch(0 0 0);
+    --page-text-color: oklch(1 0 0);
+
+    --button-background-color: oklch(1 0 0);
+    --button-text-color: oklch(0 0 0);
+
+    --space-xs: calc(var(--space-sm) / 2);
+    --space-sm: calc(var(--space-md) / 2);
+    --space-md: 16px; 
+    --space-lg: calc(var(--space-md) * 2);
+    --space-xl: calc(var(--space-lg) * 2);
+}
